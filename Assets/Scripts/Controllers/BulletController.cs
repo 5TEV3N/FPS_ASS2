@@ -17,6 +17,8 @@ public class BulletController : MonoBehaviour
     {
         if (Time.time > intialTime + timeBeforeDeath)
         {
+            Destroy(gameObject);
+            return;
         }
     }
 }

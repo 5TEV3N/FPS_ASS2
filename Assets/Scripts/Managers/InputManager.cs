@@ -48,7 +48,7 @@ public class InputManager : MonoBehaviour
                 cameraLock = false;
             }
         }
-
+        
         if (Input.GetMouseButtonDown(0))
         {
                 playerController.PlayerShoot();

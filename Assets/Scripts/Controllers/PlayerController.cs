@@ -10,28 +10,33 @@ public class PlayerController : MonoBehaviour
     public float playerSpeed = 1;                   // We can controll the speed of the player here.
     public float upDownRange = 90.0f;               // How far i can look up or down.
     public float bulletShootingForce = 10f;         // Force of bullet
+    public float valOfVelocity;                     // Checks how fast the player goes
+    public float maxVelocity;                       // The max speed of how fast the player goes
 
     [Header ("Containers")]
     public Rigidbody rb;                            // Access the rigidbody to move
-    public Camera cam;                              // Acess the Camera of the gameobject
-    public GameObject bullets;                      // Contains the bullet prefab                                                   
+    public Camera cam;                              // Acess the Camera of the gameobject       
+    public GameObject bullets;                      // Contains the bullet prefab                                        
     public Transform bulletExitPoint;               // Contains the transform of where the bullet is exiting
     public Transform bulletsParent;                 // Bullet will be placed in the BulletsSpawned as a child
 
     private float verticalRotation = 0;             // Contains the MouseYAxis
-    private Vector3 shootingDirection;              // Where the bullet is shooting towards
+    private Vector3 shootingDirection;              // Where the bullet is shooting towards    
+    private GameObject bulletsShot;                 // Instantiate the bullet prefab
 
-    private RaycastHit hit;                          // Gets info from the raycast
-    private Ray ray;                                 // Ray that gathers info
-    private Vector3 rayOrigin;                       // Position of ray 
+    private RaycastHit hit;                         // Gets info from the raycast
+    private Ray ray;                                // Ray that gathers info
+    private Vector3 rayOrigin;                      // Position of ray 
 
     void Awake()
-    {
+    {   
         inputManager = GameObject.FindGameObjectWithTag("Player").GetComponent<InputManager>();
     }
 
     void Update()
     {
+        valOfVelocity = rb.velocity.magnitude;
+
         rayOrigin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //Physics.Raycast(ray, out hit, 1000f);
@@ -62,13 +67,18 @@ public class PlayerController : MonoBehaviour
         {
             if (xAxis > 0)
             {
-                //positive x = Right
-                rb.AddForce(transform.right * playerSpeed);
+                if (valOfVelocity <= maxVelocity)
+                {
+                    rb.AddForce(transform.right * playerSpeed);
+                }
             }
 
             if (xAxis < 0)
             {
-                rb.AddForce(-transform.right * playerSpeed);
+                if (valOfVelocity <= maxVelocity)
+                {
+                    rb.AddForce(-transform.right * playerSpeed);
+                }
             }
         }
 
@@ -76,13 +86,18 @@ public class PlayerController : MonoBehaviour
         {
             if (zAxis > 0)
             {
-                //positive z = Forward
-                rb.AddForce(transform.forward * playerSpeed);
+                if (valOfVelocity <= maxVelocity)
+                {
+                    rb.AddForce(transform.forward * playerSpeed);
+                }
             }
 
             if (zAxis < 0)
             {
-                rb.AddForce(-transform.forward * playerSpeed);
+                if (valOfVelocity <= maxVelocity)
+                {
+                    rb.AddForce(-transform.forward * playerSpeed);
+                }
             }
         }
 
@@ -91,14 +106,14 @@ public class PlayerController : MonoBehaviour
     public void PlayerShoot()
     {
         print("Shoot");
-        bullets = GameObject.Instantiate(bullets, bulletsParent) as GameObject;
-        bullets.name = "Bullet";
-        bullets.transform.position = bulletExitPoint.transform.position;
+        bulletsShot = GameObject.Instantiate(bullets, bulletsParent) as GameObject;
+        bulletsShot.name = "Bullet";
+        bulletsShot.transform.position = bulletExitPoint.transform.position;
 
-        Vector3 bulletDirection = ((ray.GetPoint(1000f)) - bullets.transform.position).normalized;
+        Vector3 bulletDirection = ((ray.GetPoint(1000f)) - bulletsShot.transform.position).normalized;
         //credits too http://stackoverflow.com/questions/33018808/unity-shooting-at-your-crosshair-even-if-there-is-no-ray-hit
 
-        bullets.GetComponent<Rigidbody>().AddForce(bulletDirection * bulletShootingForce, ForceMode.Impulse);
+        bulletsShot.GetComponent<Rigidbody>().AddForce(bulletDirection * bulletShootingForce, ForceMode.Impulse);
     }
 }
 
