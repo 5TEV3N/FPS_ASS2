@@ -3,15 +3,15 @@ using System.Collections;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    /*
+/*
     REQUIRED
-10 control character
-10 shoot bullet on command
-10 can be out of ammo
-10 health system (players and enemies)
+10 control character    X
+10 shoot bullet on command  X
+10 can be out of ammo   X
+10 health system (players and enemies) x
 10 enemy shoots at player
-10 lose by dying
-10 win by killing all enemies
+10 lose by dying    
+10 win by killing all enemies x
 
     EXTRAS (worth 30% total)
 10 enemy pathfinding (to player, ammo...)
@@ -29,5 +29,5 @@ public class NewBehaviourScript : MonoBehaviour
 6 UI
 6 game progresses in difficulty
 6 originality
-    */
+*/
 }

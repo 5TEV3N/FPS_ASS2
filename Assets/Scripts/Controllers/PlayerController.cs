@@ -4,8 +4,10 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     InputManager inputManager;
+    AmmoManager ammoManager;
 
-    [Header ("Values")]
+    [Header("Values")]
+    public int playerHP;                            // Health of player
     public float mouseSensitivity = 1;              // Mouse sensitivity
     public float playerSpeed = 1;                   // We can controll the speed of the player here.
     public float upDownRange = 90.0f;               // How far i can look up or down.
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {   
         inputManager = GameObject.FindGameObjectWithTag("Player").GetComponent<InputManager>();
+        ammoManager = GameObject.FindGameObjectWithTag("Player").GetComponent<AmmoManager>();
     }
 
     void Update()
@@ -39,8 +42,8 @@ public class PlayerController : MonoBehaviour
 
         rayOrigin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //Physics.Raycast(ray, out hit, 1000f);
         Debug.DrawRay(rayOrigin, ray.direction * 1000f, Color.green);
+        //Physics.Raycast(ray, out hit, 1000f);
     }
 
     public void Mouselook(float mouseXAxis, float mouseYAxis)
@@ -105,23 +108,24 @@ public class PlayerController : MonoBehaviour
 
     public void PlayerShoot()
     {
-        print("Shoot");
-        bulletsShot = GameObject.Instantiate(bullets, bulletsParent) as GameObject;
-        bulletsShot.name = "Bullet";
-        bulletsShot.transform.position = bulletExitPoint.transform.position;
+        if (ammoManager.ammoLeft != 0 )
+        {
+            ammoManager.ammoLeft--;
 
-        Vector3 bulletDirection = ((ray.GetPoint(1000f)) - bulletsShot.transform.position).normalized;
-        //credits too http://stackoverflow.com/questions/33018808/unity-shooting-at-your-crosshair-even-if-there-is-no-ray-hit
+            print("Shoot");
+            bulletsShot = GameObject.Instantiate(bullets, bulletsParent) as GameObject;
+            bulletsShot.name = "Bullet";
+            bulletsShot.transform.position = bulletExitPoint.transform.position;
 
-        bulletsShot.GetComponent<Rigidbody>().AddForce(bulletDirection * bulletShootingForce, ForceMode.Impulse);
+            Vector3 bulletDirection = ((ray.GetPoint(1000f)) - bulletsShot.transform.position).normalized;
+            //credits too http://stackoverflow.com/questions/33018808/unity-shooting-at-your-crosshair-even-if-there-is-no-ray-hit
+
+            bulletsShot.GetComponent<Rigidbody>().AddForce(bulletDirection * bulletShootingForce, ForceMode.Impulse);
+        }
+
+        if (ammoManager.ammoLeft == 0)
+        {
+            print("Can't shoot");
+        }
     }
 }
-
-/*
-bullets = GameObject.Instantiate(bullets, bulletsParent) as GameObject;
-bullets.name = "Bullet";
-bullets.transform.position = bulletExitPoint.transform.position;
-
-shootingDirection = bullets.transform.position;
-bullets.GetComponent<Rigidbody>().AddForce(shootingDirection * bulletShootingForce, ForceMode.Impulse);
-*/
