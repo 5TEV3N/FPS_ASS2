@@ -18,4 +18,13 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void OnTriggerEnter(Collider player)
+    {
+        if (player.gameObject.tag == "Player")
+        {
+            print("Enemy detect player. Shoot at player");
+        }
+    }
 }
+
