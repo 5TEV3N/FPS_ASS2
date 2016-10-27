@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
         {
             print("IM DEAD");
             Destroy(gameObject);
+            //Destroy(enemycamerapov)
         }
     }
 
