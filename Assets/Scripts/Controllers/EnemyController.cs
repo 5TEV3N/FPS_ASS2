@@ -34,7 +34,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void OnTriggerStay(Collider player)
+    void OnTriggerEnter(Collider player)
     {
         if (player.gameObject.tag == "Player")
         {
@@ -46,12 +46,12 @@ public class EnemyController : MonoBehaviour
     {
         enemyBulletShot = GameObject.Instantiate(enemyBullets, bulletsParent) as GameObject;
         enemyBulletShot.name = "Enemy Bullet";
-        //enemyBulletShot.transform.position = enemybulletExitPoint.transform.position;
+        enemyBulletShot.transform.position = enemybulletExitPoint.transform.position;
 
-        //Vector3 enemyShootingDirection = gameObject.transform.position - enemybulletExitPoint.transform.position;
-        //enemyShootingDirection.Normalize();
+        Vector3 enemyShootingDirection = playerPosition - enemybulletExitPoint.transform.position;
+        enemyShootingDirection.Normalize();
         
-        //enemyBulletShot.GetComponent<Rigidbody>().AddForce(enemyShootingDirection * enemyShootingForce, ForceMode.Impulse);
+        enemyBulletShot.GetComponent<Rigidbody>().AddForce(enemyShootingDirection * enemyShootingForce, ForceMode.Impulse);
     }
 }
 
