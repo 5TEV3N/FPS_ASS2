@@ -42,8 +42,7 @@ public class PlayerController : MonoBehaviour
 
         rayOrigin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(rayOrigin, ray.direction * 1000f, Color.green);
-        //Physics.Raycast(ray, out hit, 1000f);
+        Debug.DrawRay(rayOrigin, ray.direction * 1000f, Color.gray);
     }
 
     public void Mouselook(float mouseXAxis, float mouseYAxis)
@@ -51,16 +50,15 @@ public class PlayerController : MonoBehaviour
         //Filter Horizontal input
         if (mouseXAxis != 0)
         {
-            gameObject.transform.Rotate(new Vector3(0, mouseXAxis, 0));                     // Rotate gameObject left or right
-            
+            gameObject.transform.Rotate(new Vector3(0, mouseXAxis, 0));      
         }
 
         //Filter Vertical input
         if (mouseYAxis != 0)
         {
-            verticalRotation -= Input.GetAxis("Mouse Y") * mouseSensitivity;                // Rotates the gameobject up and down.
-            verticalRotation = Mathf.Clamp(verticalRotation, -upDownRange, upDownRange);    // Clamp the camera from moving up and down. Argument = float Value, float minimum val, float max minimum val
-            cam.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);         // Idk.
+            verticalRotation -= Input.GetAxis("Mouse Y") * mouseSensitivity;               
+            verticalRotation = Mathf.Clamp(verticalRotation, -upDownRange, upDownRange);   
+            cam.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);        
         } 
     }
 
@@ -117,8 +115,7 @@ public class PlayerController : MonoBehaviour
             bulletsShot.name = "Bullet";
             bulletsShot.transform.position = bulletExitPoint.transform.position;
 
-            Vector3 bulletDirection = ((ray.GetPoint(1000f)) - bulletsShot.transform.position).normalized;
-            //credits too http://stackoverflow.com/questions/33018808/unity-shooting-at-your-crosshair-even-if-there-is-no-ray-hit
+            Vector3 bulletDirection = ((ray.GetPoint(1000f)) - bulletsShot.transform.position).normalized;                  //credits too http://stackoverflow.com/questions/33018808/unity-shooting-at-your-crosshair-even-if-there-is-no-ray-hit
 
             bulletsShot.GetComponent<Rigidbody>().AddForce(bulletDirection * bulletShootingForce, ForceMode.Impulse);
         }

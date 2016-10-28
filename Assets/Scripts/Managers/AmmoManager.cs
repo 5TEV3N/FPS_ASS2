@@ -12,7 +12,6 @@ public class AmmoManager : MonoBehaviour
     public GameObject uiNoAmmo;           // Container for the No ammo text from the ui
     public GameObject uiNoAmmoBackdrop;   // Again, same as above
 
-
     void Update()
     {
         uiAmmo.text = ammoLeft + " | " + ammo;

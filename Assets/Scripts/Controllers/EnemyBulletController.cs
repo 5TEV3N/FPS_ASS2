@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BulletController : MonoBehaviour
+public class EnemyBulletController : MonoBehaviour
 {
-    EnemyManager enemyManager;                      //  Refferencing the enemyManager
+    PlayerController playerController;              //  Refferencing the enemyManager
 
     public float timeBeforeDeath;                   //  Time before it destroys itself
     public float intialTime;                        //  Self explanatory
 
     void Awake()
     {
-        enemyManager = GameObject.FindGameObjectWithTag("T_EnemyManager").GetComponent<EnemyManager>();
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     void Start()
@@ -26,14 +26,14 @@ public class BulletController : MonoBehaviour
             return;
         }
     }
-    void OnCollisionEnter (Collision enemy)
+    void OnCollisionEnter(Collision enemy)
     {
-        if (enemy.transform.tag == "T_Enemy")
+        if (enemy.transform.tag == "Player")
         {
-            print("Hit enemy!");
-            if (enemyManager.enemyHp != 0)
+            print("Hit Player!");
+            if (playerController.playerHP != 0)
             {
-                enemyManager.enemyHp--;
+                playerController.playerHP--;
             }
         }
     }
