@@ -19,7 +19,8 @@ public class EnemyController : MonoBehaviour
     public Transform[] hidingPosition;           // Hiding positions for the enemy
 
     private GameObject enemyBulletShot;          // Instantiated prefab bullet 
-    
+    private Transform findAnotherHidingPlace;    // Move the enemy into another hiding place
+
     void Awake()
     {
         enemyManager = GameObject.FindGameObjectWithTag("T_EnemyManager").GetComponent<EnemyManager>();
@@ -27,8 +28,9 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        playerPosition = playerObject.transform.position;
+        findAnotherHidingPlace = hidingPosition[Random.Range(0, hidingPosition.Length)];
 
+        playerPosition = playerObject.transform.position;
         gameObject.transform.LookAt(playerPosition);
 
         if (enemyManager.enemyHp == 0)
@@ -43,7 +45,14 @@ public class EnemyController : MonoBehaviour
         if (player.gameObject.tag == "Player")
         {
             ShootOnSight();
-            Transform findAnotherHidingPlace = hidingPosition[Random.Range(0, hidingPosition.Length)];
+            agent.SetDestination(findAnotherHidingPlace.position);
+        }
+    }
+
+    void OnCollisionEnter(Collision bullet)
+    {
+        if (bullet.gameObject.tag == "T_Bullet")
+        {
             agent.SetDestination(findAnotherHidingPlace.position);
         }
     }

@@ -3,14 +3,14 @@ using System.Collections;
 
 public class EnemyBulletController : MonoBehaviour
 {
-    PlayerController playerController;              //  Refferencing the enemyManager
+    LevelManager levelManager;                      //  Refferencing the levelManager
 
     public float timeBeforeDeath;                   //  Time before it destroys itself
     public float intialTime;                        //  Self explanatory
 
     void Awake()
     {
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        levelManager = GameObject.FindGameObjectWithTag("T_LevelManager").GetComponent<LevelManager>();
     }
 
     void Start()
@@ -31,9 +31,9 @@ public class EnemyBulletController : MonoBehaviour
         if (enemy.transform.tag == "Player")
         {
             print("Hit Player!");
-            if (playerController.playerHP != 0)
+            if (levelManager.playerHP != 0)
             {
-                playerController.playerHP--;
+                levelManager.playerHP--;
             }
         }
     }

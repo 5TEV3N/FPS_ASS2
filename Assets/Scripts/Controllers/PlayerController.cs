@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     AmmoManager ammoManager;
 
     [Header("Values")]
-    public int playerHP;                            // Health of player
     public float mouseSensitivity = 1;              // Mouse sensitivity
     public float playerSpeed = 1;                   // We can controll the speed of the player here.
     public float upDownRange = 90.0f;               // How far i can look up or down.
