@@ -10,7 +10,7 @@ public class NewBehaviourScript : MonoBehaviour
 10 can be out of ammo   X
 10 health system (players and enemies) x
 10 enemy shoots at player x
-10 lose by dying    
+10 lose by dying    X
 10 win by killing all enemies x
 
     EXTRAS (worth 30% total)
