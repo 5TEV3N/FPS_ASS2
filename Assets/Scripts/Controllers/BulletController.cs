@@ -30,7 +30,6 @@ public class BulletController : MonoBehaviour
     {
         if (enemy.transform.tag == "T_Enemy")
         {
-            print("Hit enemy!");
             if (enemyManager.enemyHp != 0)
             {
                 enemyManager.enemyHp--;

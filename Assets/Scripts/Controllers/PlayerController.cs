@@ -15,9 +15,9 @@ public class PlayerController : MonoBehaviour
     public float valOfVelocity;                     // Checks how fast the player goes
     public float maxVelocity;                       // The max speed of how fast the player goes
 
-    public float shakeCamDuration;
-    public float shakeCamAmplitude;
-    public float shakeCamDecay;
+    public float shakeCamDuration;                  // Self explanatory
+    public float shakeCamAmplitude;                 // Self explanatory
+    public float shakeCamDecay;                     // Self explanatory
 
     [Header ("Containers")]
     public Rigidbody rb;                            // Access the rigidbody to move
@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public Transform bulletExitPoint;               // Contains the transform of where the bullet is exiting
     public Transform bulletsParent;                 // Bullet will be placed in the BulletsSpawned as a child
     public AudioSource hurtSound;                   // Contains the audiosound for the player getting hurt
+    public AudioSource pewSound;                    // Contains the audiosound for the gun noise
 
     private float verticalRotation = 0;             // Contains the MouseYAxis
     private Vector3 shootingDirection;              // Where the bullet is shooting towards    
@@ -115,8 +116,6 @@ public class PlayerController : MonoBehaviour
         if (ammoManager.ammoLeft != 0 )
         {
             ammoManager.ammoLeft--;
-
-            print("Shoot");
             bulletsShot = GameObject.Instantiate(bullets, bulletsParent) as GameObject;
             bulletsShot.name = "Bullet";
             bulletsShot.transform.position = bulletExitPoint.transform.position;
@@ -124,11 +123,8 @@ public class PlayerController : MonoBehaviour
             Vector3 bulletDirection = ((ray.GetPoint(1000f)) - bulletsShot.transform.position).normalized;                  //credits too http://stackoverflow.com/questions/33018808/unity-shooting-at-your-crosshair-even-if-there-is-no-ray-hit
 
             bulletsShot.GetComponent<Rigidbody>().AddForce(bulletDirection * bulletShootingForce, ForceMode.Impulse);
-        }
 
-        if (ammoManager.ammoLeft == 0)
-        {
-            print("Can't shoot");
+            pewSound.Play();
         }
     }
 

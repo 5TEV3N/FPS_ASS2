@@ -19,7 +19,6 @@ public class AmmoManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            print("Reloading...");
             ammoLeft = ammo;
 
             uiNoAmmo.SetActive(false);

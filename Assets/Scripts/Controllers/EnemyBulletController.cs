@@ -32,7 +32,6 @@ public class EnemyBulletController : MonoBehaviour
     {
         if (enemy.transform.tag == "Player")
         {
-            print("Hit Player!");
             if (levelManager.playerHP != 0)
             {
                 levelManager.playerHP--;

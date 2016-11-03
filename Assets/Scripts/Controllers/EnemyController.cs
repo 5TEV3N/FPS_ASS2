@@ -35,7 +35,6 @@ public class EnemyController : MonoBehaviour
 
         if (enemyManager.enemyHp == 0)
         {
-            print("IM DEAD");
             Destroy(gameObject);
         }
     }
