@@ -14,7 +14,7 @@ public class NewBehaviourScript : MonoBehaviour
 10 win by killing all enemies x
 
     EXTRAS (worth 30% total)
-10 enemy pathfinding (to player, ammo...)
+10 enemy pathfinding (to player, ammo...) x
 6 different kinds of ammo /
 6 ability to select ammo type /
 6 powerups ( change colors )
